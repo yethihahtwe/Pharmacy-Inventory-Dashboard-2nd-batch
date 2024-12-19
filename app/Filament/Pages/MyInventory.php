@@ -54,7 +54,7 @@ class MyInventory extends Page implements HasTable, HasForms
     private static function tableQuery(): Builder
     {
         return Transaction::query()
-            ->selectRaw('item_id, category_id, SUM(amount) as total_amount')
+            ->selectRaw('min(id) as id, item_id, category_id, SUM(amount) as total_amount')
             ->havingRaw('SUM(amount) > 0')
             ->groupBy('item_id', 'category_id')
             ->orderBy('item_id');

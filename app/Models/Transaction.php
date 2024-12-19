@@ -46,4 +46,9 @@ class Transaction extends Model
     {
         return $this->belongsTo(Warehouse::class, 'source');
     }
+
+    public function destinationWarehouse(): BelongsTo
+    {
+        return $this->belongsTo(Warehouse::class, 'destination');
+    }
 }

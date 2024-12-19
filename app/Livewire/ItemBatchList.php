@@ -2,6 +2,13 @@
 
 namespace App\Livewire;
 
+use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Placeholder;
+use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
+use Filament\Tables\Actions\Action;
 use Livewire\Component;
 use Filament\Tables\Table;
 use App\Models\Transaction;
@@ -37,6 +44,8 @@ class ItemBatchList extends Component implements HasTable, HasForms
                     ->searchable(),
                 TextColumn::make('category.name')
                     ->searchable(),
+                TextColumn::make('packageForm.name')
+                    ->searchable(),
                 TextColumn::make('exp_date')
                     ->date()
                     ->sortable(),
@@ -47,6 +56,64 @@ class ItemBatchList extends Component implements HasTable, HasForms
                     ->sortable(),
                 TextColumn::make('donor.name')
                     ->searchable(),
+            ])
+            ->actions([
+                Action::make('dispense')
+                    ->form([
+                        Section::make('Item Details')
+                            ->schema([
+                                Placeholder::make('item')
+                                    ->content(fn($record) => $record->item->name)
+                                    ->inlineLabel(),
+                                Placeholder::make('category')
+                                    ->content(fn($record) => $record->category->name)
+                                    ->inlineLabel(),
+                                Placeholder::make('package form')
+                                    ->content(fn($record) => $record->packageForm->name)
+                                    ->inlineLabel(),
+                                Placeholder::make('expiry date')
+                                    ->content(fn($record) => $record->exp_date)
+                                    ->inlineLabel(),
+                                Placeholder::make('batch number')
+                                    ->content(fn($record) => $record->batch)
+                                    ->inlineLabel(),
+                                Placeholder::make('donor')
+                                    ->content(fn($record) => $record->donor->name)
+                                    ->inlineLabel(),
+                            ])->columns(2),
+                        Section::make('Dispense Details')
+                            ->schema([
+                                DatePicker::make('date')
+                                    ->label('Date of Dispense')
+                                    ->required()
+                                    ->native(false),
+                                TextInput::make('amount')
+                                    ->label('Amount')
+                                    ->required()
+                                    ->numeric()
+                                    ->maxValue(fn($record) => $record->total_amount),
+                                Select::make('destination')
+                                    ->label('Destination')
+                                    ->required()
+                                    ->placeholder('Please select destination')
+                                    ->native(false)
+                                    ->relationship(
+                                        name: 'destinationWarehouse',
+                                        titleAttribute: 'name',
+                                        modifyQueryUsing: fn(Builder $query) => $query->where('name', '!=', 'Direct Purchase')
+                                    )
+                                    ->createOptionForm([
+                                        TextInput::make('name')
+                                            ->label('Destination Warehouse')
+                                            ->required(),
+                                    ]),
+                                Textarea::make('remarks')
+                            ])->columns(2),
+                    ])
+                    ->action(function (array $data, Transaction $record) {
+                        $data['type'] = 'OUT';
+                        dd($data);
+                    })
             ]);
     }
 
@@ -55,20 +122,17 @@ class ItemBatchList extends Component implements HasTable, HasForms
         $itemId = $this->itemId;
         return Transaction::query()
             ->selectRaw('
+            min(id) AS id,
             item_id,
             category_id,
+            package_form_id,
             exp_date,
             batch,
             SUM(amount) AS total_amount,
             donor_id')
             ->where('item_id', '=', $itemId)
-            ->groupBy('item_id', 'category_id', 'exp_date', 'batch', 'donor_id')
+            ->groupBy('item_id', 'category_id', 'package_form_id', 'exp_date', 'batch', 'donor_id')
             ->havingRaw('SUM(amount) > 0')
             ->orderBy('exp_date', 'ASC');
-    }
-
-    public function getTableRecordKey(Model $record): string
-    {
-        return uniqid();
     }
 }

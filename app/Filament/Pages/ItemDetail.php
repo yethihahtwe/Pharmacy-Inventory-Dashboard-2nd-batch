@@ -39,7 +39,7 @@ class ItemDetail extends Page
                 ->label('Back to My Inventory')
                 ->outlined()
                 ->color('gray')
-                ->url(fn(): string => MyInventory::getUrl())
+                ->url(MyInventory::getUrl())
         ];
     }
 
