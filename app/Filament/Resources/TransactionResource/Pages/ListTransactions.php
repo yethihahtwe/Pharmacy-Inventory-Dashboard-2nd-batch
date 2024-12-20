@@ -13,15 +13,7 @@ class ListTransactions extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make()
-            ->label('Create Incoming Transactions')
-            ->icon('heroicon-o-arrow-right-end-on-rectangle')
-            ->outlined(),
-            Actions\Action::make('outgoing')
-            ->label('Create Outgoing Transactions')
-            ->icon('heroicon-o-arrow-right-start-on-rectangle')
-            ->url(Outgoing::getUrl())
-            ->outlined(),
+            Actions\CreateAction::make(),
         ];
     }
 }

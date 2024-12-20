@@ -56,6 +56,8 @@ class ItemBatchList extends Component implements HasTable, HasForms
                     ->sortable(),
                 TextColumn::make('donor.name')
                     ->searchable(),
+                TextColumn::make('sourceWarehouse.name')
+                    ->searchable(),
             ])
             ->actions([
                 Action::make('dispense')
@@ -79,6 +81,9 @@ class ItemBatchList extends Component implements HasTable, HasForms
                                     ->inlineLabel(),
                                 Placeholder::make('donor')
                                     ->content(fn($record) => $record->donor->name)
+                                    ->inlineLabel(),
+                                Placeholder::make('source')
+                                    ->content(fn($record) => $record->sourceWarehouse->name)
                                     ->inlineLabel(),
                             ])->columns(2),
                         Section::make('Dispense Details')
@@ -112,7 +117,16 @@ class ItemBatchList extends Component implements HasTable, HasForms
                     ])
                     ->action(function (array $data, Transaction $record) {
                         $data['type'] = 'OUT';
-                        dd($data);
+                        $data['item_id'] = $record->item_id;
+                        $data['category_id'] = $record->category_id;
+                        $data['package_form_id'] = $record->package_form_id;
+                        $data['exp_date'] = $record->exp_date;
+                        $data['batch'] = $record->batch;
+                        $data['donor_id'] = $record->donor_id;
+                        $data['source'] = $record->source;
+                        $data['amount'] *= -1;
+                        $record->create($data);
+                        redirect()->route('filament.user.pages.my-inventory');
                     })
             ]);
     }
@@ -129,9 +143,10 @@ class ItemBatchList extends Component implements HasTable, HasForms
             exp_date,
             batch,
             SUM(amount) AS total_amount,
-            donor_id')
+            donor_id,
+            source')
             ->where('item_id', '=', $itemId)
-            ->groupBy('item_id', 'category_id', 'package_form_id', 'exp_date', 'batch', 'donor_id')
+            ->groupBy('item_id', 'category_id', 'package_form_id', 'exp_date', 'batch', 'donor_id', 'source')
             ->havingRaw('SUM(amount) > 0')
             ->orderBy('exp_date', 'ASC');
     }

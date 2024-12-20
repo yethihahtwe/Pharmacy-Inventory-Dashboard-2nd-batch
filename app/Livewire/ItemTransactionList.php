@@ -40,6 +40,8 @@ class ItemTransactionList extends Component implements HasTable, HasForms
                     ->searchable(),
                 TextColumn::make('category.name')
                     ->searchable(),
+                TextColumn::make('packageForm.name')
+                    ->searchable(),
                 TextColumn::make('exp_date')
                     ->date()
                     ->sortable(),
@@ -52,7 +54,7 @@ class ItemTransactionList extends Component implements HasTable, HasForms
                     ->searchable(),
                 TextColumn::make('sourceWarehouse.name')
                     ->searchable(),
-                TextColumn::make('destination')
+                TextColumn::make('destinationWarehouse.name')
                     ->searchable(),
                 TextColumn::make('created_at')
                     ->dateTime()

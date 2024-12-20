@@ -119,6 +119,8 @@ class TransactionResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('category.name')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('packageForm.name')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('exp_date')
                     ->date()
                     ->sortable(),
@@ -131,7 +133,7 @@ class TransactionResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('sourceWarehouse.name')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('destination')
+                Tables\Columns\TextColumn::make('destinationWarehouse.name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
