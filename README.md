@@ -1,66 +1,131 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Pharmacy Inventory Management System
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A Laravel-based pharmacy inventory management application built with Filament PHP, created as part of a technical training program for healthcare organizations. This project demonstrates practical implementation of web development concepts using modern tools and frameworks.
 
-## About Laravel
+## 🎯 Project Overview
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+This application helps manage pharmacy inventory with features including:
+- Stock management (inflow/outflow tracking)
+- Batch and expiry date monitoring
+- Donor contribution tracking
+- Multi-warehouse distribution management
+- Dashboard with data visualization
+- Automated expiry alerts
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 🛠 Built With
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- [Laravel](https://laravel.com/) - PHP Framework
+- [Filament](https://filamentphp.com/) - Admin Panel Builder
+- [MySQL](https://www.mysql.com/) - Database
+- [Tailwind CSS](https://tailwindcss.com/) - Styling
+- [Chart.js](https://www.chartjs.org/) - Data Visualization
 
-## Learning Laravel
+## 🚀 Features
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+1. **Inventory Management**
+   - Track medicine inflow/outflow
+   - Manage multiple batches
+   - Monitor expiry dates
+   - Calculate current stock levels
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+2. **Warehouse Management**
+   - Multi-warehouse support
+   - Track inter-warehouse transfers
+   - Distribution statistics
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+3. **Donor Management**
+   - Track donations by source
+   - Donor contribution analytics
+   - Historical donation records
 
-## Laravel Sponsors
+4. **Dashboard & Analytics**
+   - Real-time stock levels
+   - Expiry alerts
+   - Distribution patterns
+   - Donor contribution charts
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## ⚙️ Installation
 
-### Premium Partners
+1. Clone the repository
+```bash
+git clone [repository-url]
+cd pharmacy-training-app
+```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+2. Install dependencies
+```bash
+composer install
+npm install
+```
 
-## Contributing
+3. Create environment file
+```bash
+cp .env.example .env
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+4. Configure your database in `.env`
+```
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=pharmacy_training_app
+DB_USERNAME=root
+DB_PASSWORD=
+```
 
-## Code of Conduct
+5. Generate application key
+```bash
+php artisan key:generate
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+6. Run migrations and seeders
+```bash
+php artisan migrate
+php artisan db:seed
+```
 
-## Security Vulnerabilities
+7. Build assets
+```bash
+npm run dev
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+8. Start the development server
+```bash
+php artisan serve
+```
 
-## License
+## 📖 Training Context
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project was developed as part of a 3-day technical training program for healthcare organizations. The training covered:
+- Modern web development practices
+- Laravel framework fundamentals
+- Database design principles
+- CRUD operations
+- Admin panel development with Filament
+- Data visualization techniques
+
+The project structure and implementation reflect real-world development practices while maintaining accessibility for learning purposes.
+
+## 👥 Target Audience
+
+- Healthcare Organizations
+- NGO Technical Staff
+- Web Developers in Healthcare Sector
+- IT Training Programs
+
+## 🤝 Contributing
+
+Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](issues-url).
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+- Participants who contributed to the project's development through their feedback and engagement
+
+## 📞 Contact
+
+For questions and support, please contact me via email(yethihahtwe319@gmail[dot]com).
+
+---
+*This project was created as an educational resource and can be modified to suit specific organizational needs.*
